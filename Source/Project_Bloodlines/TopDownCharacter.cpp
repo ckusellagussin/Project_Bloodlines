@@ -2,7 +2,11 @@
 
 
 #include "TopDownCharacter.h"
+
+#include "AssetTypeCategories.h"
+#include "SWarningOrErrorBox.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Misc/App.h"
 
 // Sets default values
 ATopDownCharacter::ATopDownCharacter()
@@ -23,6 +27,8 @@ void ATopDownCharacter::BeginPlay()
 void ATopDownCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	MovementDistance();
+
 
 }
 
@@ -37,8 +43,15 @@ void ATopDownCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 void ATopDownCharacter::MovementDistance()
 {
-
-	FVector characterMovement =  GetVelocity();
+	FVector Velocity = GetVelocity();
+	float Speed = Velocity.Size();
+	float CharacterDistance =  Speed * GetWorld()->GetDeltaSeconds() / 100;
 	
+	TotalDistance = TotalDistance += CharacterDistance;
+	if(GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(1, 0.0f, FColor::Cyan, 
+			FString::Printf(TEXT("Frame: %.2f | Total: %.2f"), CharacterDistance, TotalDistance));
+	}	
 }
 

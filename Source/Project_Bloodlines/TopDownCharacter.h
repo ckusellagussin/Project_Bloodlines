@@ -22,6 +22,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Character Movement")
 	float MaxMovementDistance = 8.0;
 
+	UPROPERTY(BlueprintReadOnly)
+	float TotalDistance{0.0f};
+	
 	UFUNCTION()
 	void MovementDistance();
 
