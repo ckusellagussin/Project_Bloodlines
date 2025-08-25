@@ -2,7 +2,6 @@
 
 
 #include "TopDownCharacter.h"
-
 #include "AssetTypeCategories.h"
 #include "SWarningOrErrorBox.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -26,9 +25,10 @@ void ATopDownCharacter::BeginPlay()
 // Called every frame
 void ATopDownCharacter::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-	MovementDistance();
 
+	Super::Tick(DeltaTime);
+	CalculateMovementDistance();
+	MaxPlayerMoveDistance();
 
 }
 
@@ -41,17 +41,45 @@ void ATopDownCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 }
 
 
-void ATopDownCharacter::MovementDistance()
+float ATopDownCharacter::CalculateMovementDistance()
 {
+	//Convert Velocity from character into speed
 	FVector Velocity = GetVelocity();
 	float Speed = Velocity.Size();
+
+	//Divide by 100 to get distance by cm but is standard Distance = Speed * Time
 	float CharacterDistance =  Speed * GetWorld()->GetDeltaSeconds() / 100;
-	
-	TotalDistance = TotalDistance += CharacterDistance;
+
+	//Add distance travelled to a sum and display
+	totalDistance = totalDistance += CharacterDistance;
 	if(GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 0.0f, FColor::Cyan, 
-			FString::Printf(TEXT("Frame: %.2f | Total: %.2f"), CharacterDistance, TotalDistance));
-	}	
+			FString::Printf(TEXT("Frame: %.2f | Total: %.2f"), CharacterDistance, totalDistance));
+	}
+
+	return totalDistance;
 }
+
+void ATopDownCharacter::MaxPlayerMoveDistance()
+{
+	
+	totalDistance = CalculateMovementDistance();
+	movementLeft = MaxMovementDistance - totalDistance;
+
+	if (totalDistance >= MaxMovementDistance)
+	{
+
+		GetCharacterMovement()->MaxWalkSpeed = 0.0f;
+		
+	}
+	
+	if(GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(2, 0.0f, FColor::Red, 
+			FString::Printf(TEXT("Total Distance Left: %.2f"), movementLeft));
+	}
+	
+}
+
 

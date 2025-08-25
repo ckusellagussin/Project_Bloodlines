@@ -20,14 +20,19 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, Category="Character Movement")
-	float MaxMovementDistance = 8.0;
+	float MaxMovementDistance = 20.0;
 
+	UPROPERTY(EditAnywhere, Category="Character Movement")
+	float movementLeft {0.0f};
+	
 	UPROPERTY(BlueprintReadOnly)
-	float TotalDistance{0.0f};
+	float totalDistance{0.0f};
 	
 	UFUNCTION()
-	void MovementDistance();
+	float CalculateMovementDistance();
 
+	UFUNCTION()
+	void MaxPlayerMoveDistance();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
