@@ -63,11 +63,12 @@ float ATopDownCharacter::CalculateMovementDistance()
 
 void ATopDownCharacter::MaxPlayerMoveDistance()
 {
-	
+	//Get the total distance from the Calculate Movement Distance function
 	totalDistance = CalculateMovementDistance();
-	movementLeft = MaxMovementDistance - totalDistance;
+	movementLeft = maxMovementDistance - totalDistance;
 
-	if (totalDistance >= MaxMovementDistance)
+	//If total distance has reached the maximum distance then player stops moving
+	if (totalDistance >= maxMovementDistance)
 	{
 
 		GetCharacterMovement()->MaxWalkSpeed = 0.0f;

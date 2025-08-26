@@ -20,7 +20,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, Category="Character Movement")
-	float MaxMovementDistance = 20.0;
+	float maxMovementDistance = 20.0;
 
 	UPROPERTY(EditAnywhere, Category="Character Movement")
 	float movementLeft {0.0f};
