@@ -25,7 +25,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Character Movement")
 	float movementLeft {0.0f};
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	float totalDistance{0.0f};
 	
 	UFUNCTION()
