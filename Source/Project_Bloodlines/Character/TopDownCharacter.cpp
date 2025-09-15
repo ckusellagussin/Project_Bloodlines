@@ -47,14 +47,14 @@ float ATopDownCharacter::CalculateMovementDistance()
 	float Speed = Velocity.Size();
 
 	//Divide by 100 to get distance by cm but is standard Distance = Speed * Time
-	float CharacterDistance =  Speed * GetWorld()->GetDeltaSeconds() / 100;
+	float characterDistance =  Speed * GetWorld()->GetDeltaSeconds() / 100;
 
 	//Add distance travelled to a sum and display
-	totalDistance = totalDistance += CharacterDistance;
+	totalDistance = totalDistance += characterDistance;
 	if(GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 0.0f, FColor::Cyan, 
-			FString::Printf(TEXT("Frame: %.2f | Total: %.2f"), CharacterDistance, totalDistance));
+			FString::Printf(TEXT("Frame: %.2f | Total: %.2f"), characterDistance, totalDistance));
 	}
 
 	return totalDistance;
